@@ -1,0 +1,386 @@
+{
+  "name": "HubSpot deals to Sheets and Slack",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 15
+            }
+          ]
+        }
+      },
+      "id": "11111111-1111-4111-8111-111111111111",
+      "name": "Every 15 Minutes",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "language": "javaScript",
+        "jsCode": "const staticData = $getWorkflowStaticData('global');\nstaticData.seen = staticData.seen || {};\nstaticData.stages = staticData.stages || {};\n\nconst now = Date.now();\nconst lookbackMs = 15 * 60 * 1000;\nconst sinceMs = Number.isFinite(staticData.lastRunMs) ? staticData.lastRunMs : now - lookbackMs;\n// Remember when this attempt started. lastRunMs moves forward only after a successful search.\nstaticData.pendingRunMs = now;\n\nreturn [\n  {\n    json: {\n      since_ms: sinceMs,\n      since_iso: new Date(sinceMs).toISOString(),\n    },\n  },\n];"
+      },
+      "id": "22222222-2222-4222-8222-222222222222",
+      "name": "Build Search Window",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "appToken",
+        "resource": "deal",
+        "operation": "search",
+        "returnAll": true,
+        "filterGroupsUi": {
+          "filterGroupsValues": [
+            {
+              "filtersUi": {
+                "filterValues": [
+                  {
+                    "propertyName": "hs_lastmodifieddate",
+                    "operator": "GTE",
+                    "value": "={{ $json.since_ms }}"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {
+          "properties": [
+            "dealname",
+            "dealstage",
+            "amount",
+            "pipeline",
+            "hs_lastmodifieddate"
+          ],
+          "sortBy": "hs_lastmodifieddate",
+          "direction": "ASCENDING"
+        }
+      },
+      "id": "33333333-3333-4333-8333-333333333333",
+      "name": "Search Modified Deals",
+      "type": "n8n-nodes-base.hubspot",
+      "typeVersion": 2.1,
+      "position": [
+        740,
+        300
+      ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 5000,
+      "alwaysOutputData": true,
+      "credentials": {
+        "hubspotAppToken": {
+          "id": "PLACEHOLDER_HUBSPOT_CREDENTIAL_ID",
+          "name": "HubSpot account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "language": "javaScript",
+        "jsCode": "const staticData = $getWorkflowStaticData('global');\nstaticData.seen = staticData.seen || {};\nstaticData.stages = staticData.stages || {};\n\nconst items = $input.all();\nconst output = [];\n\nfor (const item of items) {\n  const deal = item.json || {};\n  const props = deal.properties && typeof deal.properties === 'object' ? deal.properties : deal;\n  const id = String(deal.id || props.hs_object_id || '').trim();\n  if (!id) {\n    continue;\n  }\n\n  const modified = String(props.hs_lastmodifieddate || '').trim();\n  const stage = String(props.dealstage || '').trim();\n  const name = String(props.dealname || '').trim();\n  const amount = props.amount == null ? '' : String(props.amount);\n  // Dedupe key is id|hs_lastmodifieddate\n  const key = `${id}|${modified}`;\n  if (staticData.seen[key]) {\n    continue;\n  }\n\n  const previousStage = Object.prototype.hasOwnProperty.call(staticData.stages, id)\n    ? staticData.stages[id]\n    : undefined;\n  const isNew = previousStage === undefined;\n  const stageChanged = !isNew && previousStage !== stage;\n\n  staticData.seen[key] = true;\n  staticData.stages[id] = stage;\n\n  let message = '';\n  if (isNew) {\n    message = `New deal ${name || id} (${id}) is in stage ${stage || 'unknown'}.`;\n  } else if (stageChanged) {\n    message = `Deal ${name || id} (${id}) moved from ${previousStage} to ${stage || 'unknown'}.`;\n  }\n\n  output.push({\n    json: {\n      deal_id: id,\n      dealname: name,\n      dealstage: stage,\n      amount,\n      hs_lastmodifieddate: modified,\n      is_new: isNew,\n      stage_changed: stageChanged,\n      notify: isNew || stageChanged,\n      message,\n    },\n  });\n}\n\nconst seenKeys = Object.keys(staticData.seen);\nif (seenKeys.length > 5000) {\n  seenKeys.slice(0, seenKeys.length - 4000).forEach((oldKey) => {\n    delete staticData.seen[oldKey];\n  });\n}\n\nstaticData.lastRunMs = Number.isFinite(staticData.pendingRunMs) ? staticData.pendingRunMs : Date.now();\nreturn output;"
+      },
+      "id": "44444444-4444-4444-8444-444444444444",
+      "name": "Dedupe Deals",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1000,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "PLACEHOLDER_SPREADSHEET_ID"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Deals"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "deal_id": "={{ $json.deal_id }}",
+            "dealname": "={{ $json.dealname }}",
+            "dealstage": "={{ $json.dealstage }}",
+            "amount": "={{ $json.amount }}",
+            "hs_lastmodifieddate": "={{ $json.hs_lastmodifieddate }}"
+          },
+          "matchingColumns": [
+            "deal_id"
+          ],
+          "schema": [
+            {
+              "id": "deal_id",
+              "displayName": "deal_id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "dealname",
+              "displayName": "dealname",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "dealstage",
+              "displayName": "dealstage",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "amount",
+              "displayName": "amount",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "hs_lastmodifieddate",
+              "displayName": "hs_lastmodifieddate",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "55555555-5555-4555-8555-555555555555",
+      "name": "Upsert Deals",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1280,
+        180
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "PLACEHOLDER_SHEETS_CREDENTIAL_ID",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "notify-on-new-or-stage",
+              "leftValue": "={{ $json.notify }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "66666666-6666-4666-8666-666666666666",
+      "name": "New or Stage Change",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1280,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "post",
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "mode": "name",
+          "value": "PLACEHOLDER_SLACK_CHANNEL"
+        },
+        "text": "={{ $json.message }}",
+        "otherOptions": {}
+      },
+      "id": "77777777-7777-4777-8777-777777777777",
+      "name": "Slack Deal Alert",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [
+        1540,
+        400
+      ],
+      "credentials": {
+        "slackApi": {
+          "id": "PLACEHOLDER_SLACK_CREDENTIAL_ID",
+          "name": "Slack account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "88888888-8888-4888-8888-888888888888",
+      "name": "Error Trigger",
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        640
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "post",
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "mode": "name",
+          "value": "PLACEHOLDER_SLACK_CHANNEL"
+        },
+        "text": "={{ 'HubSpot deal sync failed in ' + $json.workflow.name + ' at ' + $json.execution.lastNodeExecuted + ': ' + $json.execution.error.message }}",
+        "otherOptions": {}
+      },
+      "id": "99999999-9999-4999-8999-999999999999",
+      "name": "Slack Error Alert",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [
+        520,
+        640
+      ],
+      "credentials": {
+        "slackApi": {
+          "id": "PLACEHOLDER_SLACK_CREDENTIAL_ID",
+          "name": "Slack account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Every 15 Minutes": {
+      "main": [
+        [
+          {
+            "node": "Build Search Window",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Search Window": {
+      "main": [
+        [
+          {
+            "node": "Search Modified Deals",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search Modified Deals": {
+      "main": [
+        [
+          {
+            "node": "Dedupe Deals",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dedupe Deals": {
+      "main": [
+        [
+          {
+            "node": "Upsert Deals",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "New or Stage Change",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "New or Stage Change": {
+      "main": [
+        [
+          {
+            "node": "Slack Deal Alert",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Slack Error Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "UTC"
+  },
+  "staticData": {
+    "global": {
+      "seen": {},
+      "stages": {},
+      "lastRunMs": null
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}
