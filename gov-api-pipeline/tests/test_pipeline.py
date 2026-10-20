@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import csv
 import json
+import logging
 from datetime import date
 
 import pytest
@@ -78,13 +79,35 @@ def test_pipeline_posts_alert_when_webhook_is_set(tmp_path, monkeypatch):
     monkeypatch.setenv("ALERT_WEBHOOK_URL", "https://example.com/hooks/alerts")
     code = run(
         output_dir=tmp_path,
-        today=date(2025, 1, 15),
-        poster=lambda *args, **kwargs: _Response(_load("success.json")),
+        today=date(2024, 10, 20),
+        poster=lambda *args, **kwargs: _Response(_load("schema_mismatch.json")),
         alert_poster=alert_poster,
     )
     assert code == 1
     assert alerts[0][0] == "https://example.com/hooks/alerts"
-    assert "older than 60 days" in alerts[0][1]["text"]
+    assert "schema mismatch" in alerts[0][1]["text"]
+    assert not (tmp_path / "lns14000000.csv").exists()
+
+
+def test_stale_series_warns_and_still_writes(tmp_path, caplog):
+    alerts = []
+
+    def alert_poster(url, *, json, timeout):
+        alerts.append(json)
+        return _Response({})
+
+    with caplog.at_level(logging.WARNING):
+        code = run(
+            output_dir=tmp_path,
+            today=date(2025, 1, 15),
+            poster=lambda *args, **kwargs: _Response(_load("success.json")),
+            alert_poster=alert_poster,
+        )
+    assert code == 0
+    assert alerts == []
+    assert "older than 60 days" in caplog.text
+    assert (tmp_path / "lns14000000.csv").exists()
+    assert (tmp_path / "summary.json").exists()
 
 
 def test_cli_uses_fixture_transport(tmp_path, monkeypatch):

@@ -1,8 +1,8 @@
 # Tidewater Data Works
 
-Tidewater Data Works is a freelance data studio. The work is web scraping, scheduled data pipelines, document extraction, and API workflow automation: jobs that pull a source, check it, and land it somewhere a team already looks.
+Tidewater Data Works is an independent data engineering practice. The work is web scraping, scheduled data pipelines, document extraction, data quality, data cleaning, and API workflow automation: jobs that pull a source, check it, and land it somewhere a team already looks.
 
-This repository is the public portfolio. Each demo stands on its own, with a README and an offline test suite. Nothing here asks for a personal name, a committed credential, or a machine-specific path.
+This repository is the public portfolio. Each demo stands on its own, with a README, sample output, and an offline test suite. Sample companies and figures are fictional.
 
 ## Services
 
@@ -30,6 +30,14 @@ A structured extractor for invoice and receipt text. Pydantic checks the schema.
 
 A before-and-after of a nightly shipment load: retries with backoff, idempotent writes, a data-quality quarantine, and logging, plus a short written audit. See [pipeline-reliability-audit](pipeline-reliability-audit/README.md).
 
+### Data quality
+
+Declarative checks on a synthetic order file: required columns, nulls, uniqueness, ranges, allowed statuses, referential integrity against a customer list, freshness, and row-count drift. The run writes a markdown report, a JSON report, and a quarantine of the failing rows. A hard failure exits non-zero after the files are written. See [data-quality-monitoring](data-quality-monitoring/README.md).
+
+### Data cleaning
+
+A messy vendor export, in CSV or Excel, normalized to one row per vendor: names, phones, streets, cities, regions, categories, dates, currency, and weights, with near-duplicate rows merged. The run writes the clean file, a change log, and a before/after summary. See [data-cleaning-toolkit](data-cleaning-toolkit/README.md).
+
 ## Demos
 
 | Demo | What it runs |
@@ -40,6 +48,8 @@ A before-and-after of a nightly shipment load: retries with backoff, idempotent 
 | [pdf-document-extraction](pdf-document-extraction/) | Synthetic invoice and report PDFs to CSV and JSON, with total checks |
 | [ai-invoice-field-extractor](ai-invoice-field-extractor/) | Invoice and receipt fields, offline rules backend, review queue |
 | [pipeline-reliability-audit](pipeline-reliability-audit/) | Fragile shipment load, hardened rerun, and a $250 audit write-up |
+| [data-quality-monitoring](data-quality-monitoring/) | Synthetic orders checked for schema, ranges, freshness, and drift, with a quarantine |
+| [data-cleaning-toolkit](data-cleaning-toolkit/) | Messy vendor CSV and Excel normalized to a clean file and a change log |
 
 ## Tests
 
@@ -55,4 +65,4 @@ make test
 
 ## Weekday job
 
-[`.github/workflows/daily.yml`](.github/workflows/daily.yml) runs the BLS pipeline on weekday afternoons (14:30 UTC, Monday through Friday) and uploads the CSV, summary, and chart as workflow artifacts. The job cannot push to the repository. Spreadsheet credentials and the alert webhook are not provided to it.
+[`.github/workflows/daily.yml`](.github/workflows/daily.yml) runs the BLS pipeline on weekdays at 14:30 UTC and uploads the CSV, summary, and chart as workflow artifacts. The job cannot push to the repository. Spreadsheet credentials and the alert webhook are not provided to it.

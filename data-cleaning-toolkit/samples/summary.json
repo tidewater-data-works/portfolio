@@ -1,0 +1,23 @@
+{
+  "input_rows": 7,
+  "output_rows": 6,
+  "merged_rows": 1,
+  "change_count": 53,
+  "reasons": {
+    "category_mapped": 6,
+    "category_unmapped": 1,
+    "city_case": 5,
+    "currency_assumed_usd": 3,
+    "currency_parsed": 3,
+    "date_normalized": 4,
+    "merged_duplicate": 1,
+    "name_case": 3,
+    "phone_normalized": 4,
+    "phone_unparsed": 1,
+    "region_normalized": 6,
+    "street_normalized": 7,
+    "weight_missing": 1,
+    "weight_normalized": 6,
+    "whitespace": 2
+  }
+}

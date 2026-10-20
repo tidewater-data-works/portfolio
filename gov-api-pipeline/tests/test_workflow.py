@@ -24,3 +24,5 @@ def test_weekday_cron_writes_artifacts_only():
     assert "GOOGLE_SERVICE_ACCOUNT_JSON" not in text
     assert "ALERT_WEBHOOK_URL" not in text
     assert "contents: read" in text
+    assert "actions: write" not in text
+    assert "timeout-minutes: 15" in text

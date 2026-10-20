@@ -15,12 +15,11 @@ Annual `M13` rows are dropped. A BLS `-` (and the dash characters BLS uses for m
 The run fails, and does not write output, when any of these are true:
 
 - the series has **0 numeric rows** (an empty `data` array, or every value blank)
-- the newest monthly period ends **more than 60 days** before the run date
 - the payload does not match the v1 timeseries schema (missing `value`, unexpected period, and similar)
 
 A `REQUEST_FAILED` status or an HTTP failure that survives the retries fails the run as well. On any failure, `alert.py` posts the message to `ALERT_WEBHOOK_URL` when that variable is set. When it is not set, the alert is logged and the alert step exits non-zero. The pipeline exits non-zero either way.
 
-Freshness uses the last calendar day of the newest monthly period. A period that ended exactly 60 days ago still passes. One day older fails.
+Freshness uses the last calendar day of the newest monthly period. A period that ended exactly 60 days ago is current. One day older is a warning: the CSV, summary, and chart are still written, and the run exits 0. A late BLS release therefore does not fail the weekday job.
 
 ## Writers
 

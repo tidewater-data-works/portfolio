@@ -16,8 +16,8 @@ from bls import (
     EmptySeriesError,
     FetchError,
     SchemaError,
-    StaleSeriesError,
     fetch_payload,
+    freshness_warning,
     parse_series,
     validate_observations,
 )
@@ -160,9 +160,11 @@ def test_all_blank_values_count_as_zero_rows():
         validate_observations(rows, today=date(2024, 10, 20))
 
 
-def test_fresh_series_passes_and_boundary_is_exclusive():
+def test_fresh_series_passes_and_stale_series_warns():
     rows = parse_series(_load("success.json"), DEFAULT_SERIES_ID)
-    validate_observations(rows, today=date(2024, 10, 20))
-    validate_observations(rows, today=date(2024, 11, 29))
-    with pytest.raises(StaleSeriesError, match="older than 60 days"):
-        validate_observations(rows, today=date(2024, 11, 30))
+    validate_observations(rows, today=date(2024, 11, 30))
+    assert freshness_warning(rows, today=date(2024, 10, 20)) is None
+    assert freshness_warning(rows, today=date(2024, 11, 29)) is None
+    warning = freshness_warning(rows, today=date(2024, 11, 30))
+    assert warning is not None
+    assert "older than 60 days" in warning

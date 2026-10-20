@@ -192,15 +192,36 @@ def validate_observations(
     today: date,
     max_age_days: int = MAX_AGE_DAYS,
 ) -> list[Observation]:
-    """Fail on zero numeric rows or a newest period older than ``max_age_days``."""
+    """Fail when the series has zero numeric rows.
+
+    ``today`` and ``max_age_days`` are accepted so existing callers stay
+    stable. Freshness is reported separately by ``freshness_warning``.
+    """
+    del today, max_age_days
     numeric = [row for row in rows if row.value is not None]
     if not numeric:
         raise EmptySeriesError()
+    return rows
+
+
+def freshness_warning(
+    rows: list[Observation],
+    *,
+    today: date,
+    max_age_days: int = MAX_AGE_DAYS,
+) -> str | None:
+    """Return a warning when the newest period is older than ``max_age_days``.
+
+    A period that ended exactly ``max_age_days`` ago is current. One day
+    older is a warning. The pipeline still writes its files.
+    """
+    if not rows:
+        return None
     latest = max(rows, key=lambda row: (row.year, row.month))
     age_days = (today - latest.period_end).days
     if age_days > max_age_days:
-        raise StaleSeriesError(latest.period_end, age_days)
-    return rows
+        return str(StaleSeriesError(latest.period_end, age_days))
+    return None
 
 
 def _parse_point(point: Mapping[str, Any], series_id: str, index: int) -> list[Observation]:

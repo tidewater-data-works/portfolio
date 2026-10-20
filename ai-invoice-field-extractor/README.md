@@ -12,7 +12,7 @@ Each `.txt` file is one document. The filename stem is the document id.
 
 `schema.py` is a pydantic model. A payload with an extra key, a date that is not `YYYY-MM-DD`, or a currency that is not three letters is rejected. Money fields accept a `$` and thousands separators. Line amounts may be negative; that is a confidence flag, not a schema error, so the row can still be reviewed.
 
-Two backends implement the same call, `extract_fields(text, document_id=...)`:
+Three backends implement the same call, `extract_fields(text, document_id=...)`:
 
 - **rules** (the default) reads `Label: value` lines and line-item rows. Item columns are separated by two or more spaces. A `MM/DD/YYYY` date is converted to ISO. A two-digit year is not converted. When the vendor line has no label, the parser guesses from the first plain line and sets `weak_vendor`.
 - **mock** replays a JSON object of scripted responses keyed by document id. A missing id raises the same "unavailable" error a live client raises when it cannot be called.

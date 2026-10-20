@@ -1,0 +1,7 @@
+vendor_id,vendor_name,phone,street,city,region,category,since,contract_amount,contract_currency,weight_kg,source_row
+V-1001,Blue Heron Printworks,(757) 555-0133,9 Heron Court,Osprey,VA,Print,2026-02-02,515.16,USD,1.361,5
+V-1002,Cedar Wharf Logistics,(757) 555-0177,"400 Harbor Lane, Suite 2",Port City,VA,Freight,2025-01-20,0.00,EUR,0.500,4
+V-1003,Harbor & Pine Supply Co.,(757) 555-0142,18 Wharf Lane,Port City,VA,Packaging,2024-03-12,1240.50,USD,5.443,1
+V-1004,Lantern Street Clinic,(757) 555-0188,4 Lantern Street,Lantern,NC,Healthcare,2025-03-12,800.00,USD,2.500,3
+V-1005,Northbank Analytics LLC,(757) 555-0160,12 Northbank Road,Northbank,VA,,2026-02-02,2250.00,USD,1.000,7
+V-1006,Osprey Municipal Library,,1 Reading Way,Osprey,VA,Public,2023-11-01,0.00,USD,,6

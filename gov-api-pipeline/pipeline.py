@@ -13,6 +13,7 @@ from bls import (
     DEFAULT_SERIES_ID,
     default_year_window,
     fetch_payload,
+    freshness_warning,
     parse_series,
     validate_observations,
 )
@@ -42,6 +43,7 @@ def run(
         payload = fetch_payload(series_id, start_year, end_year, poster=poster)
         rows = parse_series(payload, series_id)
         rows = validate_observations(rows, today=as_of)
+        warning = freshness_warning(rows, today=as_of)
         writers = build_writers(output_dir, series_id)
         for writer in writers:
             writer.write(rows)
@@ -65,6 +67,8 @@ def run(
         summary.trailing_12_max,
         chart_path.name,
     )
+    if warning:
+        logger.warning("%s", warning)
     return 0
 
 
