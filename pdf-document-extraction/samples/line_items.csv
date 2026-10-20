@@ -1,0 +1,9 @@
+source_file,invoice_number,description,quantity,unit_price,amount
+blue-heron-bhp-3319.pdf,BHP-3319,"Pallet labels, roll",20,14.00,280.00
+blue-heron-bhp-3319.pdf,BHP-3319,Bill of lading pads,8,11.75,94.00
+blue-heron-bhp-3319.pdf,BHP-3319,Carbonless forms,5,22.40,112.00
+harbor-pine-hp-2026-0142.pdf,HP-2026-0142,"Kraft mailers, case of 100",4,28.50,114.00
+harbor-pine-hp-2026-0142.pdf,HP-2026-0142,Archive boxes,12,6.25,75.00
+harbor-pine-hp-2026-0142.pdf,HP-2026-0142,"Packing tape, 6-pack",6,9.40,56.40
+northbank-nb-2026-088.pdf,NB-2026-088,Monthly dashboard retainer,1,1800.00,1800.00
+northbank-nb-2026-088.pdf,NB-2026-088,"Source refresh, extra hour",3,150.00,450.00

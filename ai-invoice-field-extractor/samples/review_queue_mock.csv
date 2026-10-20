@@ -1,0 +1,3 @@
+document_id,document_type,vendor_name,document_number,total,confidence,flags,review_reason
+counter-2026-0318,receipt,Blue Heron Printworks,R-COUNTER-0318,9.00,0.82,line_sum_mismatch,Line items do not add up to the subtotal or total
+partial-nb-draft,invoice,,,1800.00,0.55,llm_fallback|missing_document_number|missing_vendor,Rules backend ran because the model backend did not return a usable payload; Document number is missing; Vendor is missing

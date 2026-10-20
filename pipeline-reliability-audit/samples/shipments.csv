@@ -1,0 +1,7 @@
+event_id,shipped_on,status,weight_lb,destination
+NL-1001,2026-03-02,delivered,420.50,"Port City, VA"
+NL-1002,2026-03-02,in_transit,88.00,"Lantern, NC"
+NL-1003,2026-03-03,booked,15.25,"Cedar Wharf, VA"
+NL-1004,2026-03-03,delivered,640.00,"Osprey, VA"
+NL-1005,2026-03-04,exception,12.00,"Harbor Lane, VA"
+NL-1006,2026-03-04,in_transit,210.75,"Northbank, VA"

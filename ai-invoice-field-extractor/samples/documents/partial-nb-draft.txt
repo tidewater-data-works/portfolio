@@ -1,0 +1,10 @@
+INVOICE
+Invoice date: 2026-04-02
+Currency: USD
+
+Description                          Qty    Unit price    Amount
+Dashboard retainer                   1      1800.00       1800.00
+
+Subtotal: 1800.00
+Tax: 0.00
+Total: 1800.00

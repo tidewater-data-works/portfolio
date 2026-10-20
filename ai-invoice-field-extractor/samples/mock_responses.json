@@ -1,0 +1,27 @@
+{
+  "counter-2026-0318": {
+    "document_type": "receipt",
+    "vendor_name": "Blue Heron Printworks",
+    "document_number": "R-COUNTER-0318",
+    "document_date": "2026-03-18",
+    "bill_to": null,
+    "currency": "USD",
+    "subtotal": null,
+    "tax": null,
+    "total": "9.00",
+    "line_items": [
+      {
+        "description": "latte",
+        "quantity": null,
+        "unit_price": null,
+        "amount": "4.50"
+      },
+      {
+        "description": "muffin",
+        "quantity": null,
+        "unit_price": null,
+        "amount": "3.25"
+      }
+    ]
+  }
+}

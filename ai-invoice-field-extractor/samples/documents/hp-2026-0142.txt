@@ -1,0 +1,15 @@
+INVOICE
+Vendor: Harbor & Pine Supply Co.
+Invoice number: HP-2026-0142
+Invoice date: 2026-02-12
+Bill to: Lantern Street Clinic
+Currency: USD
+
+Description                          Qty    Unit price    Amount
+Kraft mailers, case of 100           4      28.50         114.00
+Archive boxes                        12     6.25          75.00
+Packing tape, 6-pack                 6      9.40          56.40
+
+Subtotal: 245.40
+Tax: 12.27
+Total: 257.67

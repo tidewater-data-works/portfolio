@@ -1,0 +1,13 @@
+RECEIPT
+Merchant: Blue Heron Printworks
+Receipt number: R-88421
+Receipt date: 2026-03-18
+Currency: USD
+
+Description                          Amount
+Pallet labels, roll                  14.00
+Bill of lading pad                   11.75
+
+Subtotal: 25.75
+Tax: 1.55
+Total: 27.30
