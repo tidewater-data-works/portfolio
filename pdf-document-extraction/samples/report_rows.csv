@@ -1,0 +1,5 @@
+source_file,organization,prepared_by,period_start,period_end,metric,value,notes
+cedar-wharf-q1-2026.pdf,Cedar Wharf Logistics,Northbank Analytics LLC,2026-01-01,2026-03-31,Shipments,1284,Closed bills of lading
+cedar-wharf-q1-2026.pdf,Cedar Wharf Logistics,Northbank Analytics LLC,2026-01-01,2026-03-31,On-time share,0.94,Delivered by promise date
+cedar-wharf-q1-2026.pdf,Cedar Wharf Logistics,Northbank Analytics LLC,2026-01-01,2026-03-31,Average weight lb,186.40,Mean across closed loads
+cedar-wharf-q1-2026.pdf,Cedar Wharf Logistics,Northbank Analytics LLC,2026-01-01,2026-03-31,Exception count,17,Status exception

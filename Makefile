@@ -12,9 +12,15 @@ deps:
 	$(PY) -m pip install -q \
 		-r $(ROOT)/gov-api-pipeline/requirements-dev.txt \
 		-r $(ROOT)/toscrape-scraper/requirements-dev.txt \
-		-r $(ROOT)/n8n-hubspot-sheets-slack/requirements.txt
+		-r $(ROOT)/n8n-hubspot-sheets-slack/requirements.txt \
+		-r $(ROOT)/pdf-document-extraction/requirements-dev.txt \
+		-r $(ROOT)/ai-invoice-field-extractor/requirements-dev.txt \
+		-r $(ROOT)/pipeline-reliability-audit/requirements-dev.txt
 
 test: deps
 	cd $(ROOT)/gov-api-pipeline && $(PY) -m pytest -q
 	cd $(ROOT)/toscrape-scraper && $(PY) -m pytest -q
 	cd $(ROOT)/n8n-hubspot-sheets-slack && $(PY) -m pytest -q
+	cd $(ROOT)/pdf-document-extraction && $(PY) -m pytest -q
+	cd $(ROOT)/ai-invoice-field-extractor && $(PY) -m pytest -q
+	cd $(ROOT)/pipeline-reliability-audit && $(PY) -m pytest -q

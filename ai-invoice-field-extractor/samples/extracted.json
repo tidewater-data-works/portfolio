@@ -1,0 +1,133 @@
+{
+  "documents": [
+    {
+      "document_id": "bhp-receipt-88421",
+      "document_type": "receipt",
+      "vendor_name": "Blue Heron Printworks",
+      "document_number": "R-88421",
+      "document_date": "2026-03-18",
+      "bill_to": null,
+      "currency": "USD",
+      "subtotal": "25.75",
+      "tax": "1.55",
+      "total": "27.30",
+      "line_items": [
+        {
+          "description": "Pallet labels, roll",
+          "quantity": null,
+          "unit_price": null,
+          "amount": "14.00"
+        },
+        {
+          "description": "Bill of lading pad",
+          "quantity": null,
+          "unit_price": null,
+          "amount": "11.75"
+        }
+      ],
+      "confidence": "0.90",
+      "confidence_flags": [],
+      "needs_review": false,
+      "extractor": "rules"
+    },
+    {
+      "document_id": "counter-2026-0318",
+      "document_type": "receipt",
+      "vendor_name": "blue heron counter",
+      "document_number": null,
+      "document_date": null,
+      "bill_to": null,
+      "currency": "USD",
+      "subtotal": null,
+      "tax": null,
+      "total": "9.00",
+      "line_items": [
+        {
+          "description": "latte",
+          "quantity": null,
+          "unit_price": null,
+          "amount": "4.50"
+        },
+        {
+          "description": "muffin",
+          "quantity": null,
+          "unit_price": null,
+          "amount": "3.25"
+        }
+      ],
+      "confidence": "0.33",
+      "confidence_flags": [
+        "ambiguous_date",
+        "inferred_document_type",
+        "line_sum_mismatch",
+        "missing_document_number",
+        "weak_vendor"
+      ],
+      "needs_review": true,
+      "extractor": "rules"
+    },
+    {
+      "document_id": "hp-2026-0142",
+      "document_type": "invoice",
+      "vendor_name": "Harbor & Pine Supply Co.",
+      "document_number": "HP-2026-0142",
+      "document_date": "2026-02-12",
+      "bill_to": "Lantern Street Clinic",
+      "currency": "USD",
+      "subtotal": "245.40",
+      "tax": "12.27",
+      "total": "257.67",
+      "line_items": [
+        {
+          "description": "Kraft mailers, case of 100",
+          "quantity": "4",
+          "unit_price": "28.50",
+          "amount": "114.00"
+        },
+        {
+          "description": "Archive boxes",
+          "quantity": "12",
+          "unit_price": "6.25",
+          "amount": "75.00"
+        },
+        {
+          "description": "Packing tape, 6-pack",
+          "quantity": "6",
+          "unit_price": "9.40",
+          "amount": "56.40"
+        }
+      ],
+      "confidence": "0.90",
+      "confidence_flags": [],
+      "needs_review": false,
+      "extractor": "rules"
+    },
+    {
+      "document_id": "partial-nb-draft",
+      "document_type": "invoice",
+      "vendor_name": null,
+      "document_number": null,
+      "document_date": "2026-04-02",
+      "bill_to": null,
+      "currency": "USD",
+      "subtotal": "1800.00",
+      "tax": "0.00",
+      "total": "1800.00",
+      "line_items": [
+        {
+          "description": "Dashboard retainer",
+          "quantity": "1",
+          "unit_price": "1800.00",
+          "amount": "1800.00"
+        }
+      ],
+      "confidence": "0.55",
+      "confidence_flags": [
+        "missing_document_number",
+        "missing_vendor"
+      ],
+      "needs_review": true,
+      "extractor": "rules"
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+document_id,document_type,vendor_name,document_number,total,confidence,flags,review_reason
+counter-2026-0318,receipt,blue heron counter,,9.00,0.33,ambiguous_date|inferred_document_type|line_sum_mismatch|missing_document_number|weak_vendor,Date is not a full ISO date; Document type was inferred; Line items do not add up to the subtotal or total; Document number is missing; Vendor was guessed from an unlabeled line
+partial-nb-draft,invoice,,,1800.00,0.55,missing_document_number|missing_vendor,Document number is missing; Vendor is missing
