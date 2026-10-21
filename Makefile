@@ -15,7 +15,9 @@ deps:
 		-r $(ROOT)/n8n-hubspot-sheets-slack/requirements.txt \
 		-r $(ROOT)/pdf-document-extraction/requirements-dev.txt \
 		-r $(ROOT)/ai-invoice-field-extractor/requirements-dev.txt \
-		-r $(ROOT)/pipeline-reliability-audit/requirements-dev.txt
+		-r $(ROOT)/pipeline-reliability-audit/requirements-dev.txt \
+		-r $(ROOT)/data-quality-monitoring/requirements-dev.txt \
+		-r $(ROOT)/data-cleaning-toolkit/requirements-dev.txt
 
 test: deps
 	cd $(ROOT)/gov-api-pipeline && $(PY) -m pytest -q
@@ -24,3 +26,5 @@ test: deps
 	cd $(ROOT)/pdf-document-extraction && $(PY) -m pytest -q
 	cd $(ROOT)/ai-invoice-field-extractor && $(PY) -m pytest -q
 	cd $(ROOT)/pipeline-reliability-audit && $(PY) -m pytest -q
+	cd $(ROOT)/data-quality-monitoring && $(PY) -m pytest -q
+	cd $(ROOT)/data-cleaning-toolkit && $(PY) -m pytest -q

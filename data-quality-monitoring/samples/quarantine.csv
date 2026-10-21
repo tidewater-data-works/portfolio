@@ -1,0 +1,10 @@
+source_row,order_id,customer_id,ordered_on,status,amount,quantity,ship_to_city,failed_checks
+2,ORD-1002,C-101,2026-03-04,delivered,1800.00,1,Lantern,unique_order_id
+8,ORD-1002,C-101,2026-03-04,delivered,1800.00,1,Lantern,unique_order_id
+9,ORD-1008,C-103,2026-03-09,shipped,,2,Osprey,amount_not_null
+10,ORD-1009,C-100,2026-03-10,shipped,-15.00,1,Port City,amount_range
+11,ORD-1010,C-999,2026-03-12,booked,40.00,1,Port City,customer_id_known
+12,ORD-1011,C-104,2026-03-13,mystery,22.00,1,Osprey,status_allowed
+13,ORD-1012,C-101,2026-03-15,delivered,60000.00,1,Lantern,amount_range
+14,ORD-1013,C-102,2026-03-16,cancelled,10.00,0,Cedar Wharf,quantity_range
+16,ORD-1015,C-100,not-a-date,shipped,11.00,1,Port City,ordered_on_iso

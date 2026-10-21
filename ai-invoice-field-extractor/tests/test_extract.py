@@ -137,3 +137,6 @@ def test_portfolio_readme_links_this_demo():
     text = ROOT_README.read_text(encoding="utf-8")
     assert "](ai-invoice-field-extractor/)" in text
     assert "ai-invoice-field-extractor/README.md" in text
+    demo = (ROOT_README.parent / "ai-invoice-field-extractor" / "README.md").read_text(encoding="utf-8")
+    assert "Three backends" in demo
+    assert "Two backends" not in demo

@@ -172,3 +172,9 @@ def test_short_run_exits_2(tmp_path):
         client=_client(),
     )
     assert code == 2
+
+
+def test_readme_describes_the_author_field_as_sample_data():
+    text = (Path(__file__).resolve().parents[1] / "README.md").read_text(encoding="utf-8")
+    assert "author field published by the sandbox" in text
+    assert "not a byline" not in text

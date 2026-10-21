@@ -1,4 +1,5 @@
 .venv/
+venv/
 __pycache__/
 .pytest_cache/
 *.py[cod]
@@ -6,3 +7,9 @@ __pycache__/
 .coverage
 htmlcov/
 output/
+.env
+.DS_Store
+.idea/
+.vscode/
+*.log
+*.tmp

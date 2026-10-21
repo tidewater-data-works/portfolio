@@ -8,15 +8,14 @@ on:
   workflow_dispatch:
 
 # Read the repo and publish artifacts. Do not grant permission to push.
-# Spreadsheet credentials and the alert webhook are left unset, so this job
-# cannot write anywhere except the artifact upload below.
+# Spreadsheet credentials and the alert webhook are left unset.
 permissions:
   contents: read
-  actions: write
 
 jobs:
   unemployment-rate:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Checkout
         uses: actions/checkout@v4

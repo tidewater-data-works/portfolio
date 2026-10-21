@@ -43,7 +43,7 @@ python quotes_js.py --output quotes.csv --min-rows 100
 
 ## Samples
 
-`samples/books.csv` is the first 20 rows of one full 50-page crawl. `samples/quotes.csv` is one full crawl of the JavaScript quotes site. Both were produced by the scripts above. Re-run those commands to refresh them. The quotes file includes the author field the sandbox publishes; that is source data, not a byline for this repo.
+`samples/books.csv` is the first 20 rows of one full 50-page crawl. `samples/quotes.csv` is one full crawl of the JavaScript quotes site. Both were produced by the scripts above. Re-run those commands to refresh them. The quotes file includes the author field published by the sandbox.
 
 ## Tests
 

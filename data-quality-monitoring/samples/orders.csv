@@ -1,0 +1,17 @@
+order_id,customer_id,ordered_on,status,amount,quantity,ship_to_city
+ORD-1001,C-100,2026-03-02,shipped,245.40,4,Port City
+ORD-1002,C-101,2026-03-04,delivered,1800.00,1,Lantern
+ORD-1003,C-102,2026-03-06,booked,486.00,8,Cedar Wharf
+ORD-1004,C-103,2026-03-08,shipped,75.00,12,Osprey
+ORD-1005,C-104,2026-03-11,delivered,515.16,5,Osprey
+ORD-1006,C-100,2026-03-14,booked,114.00,6,Port City
+ORD-1007,C-102,2026-03-18,shipped,94.00,3,Cedar Wharf
+ORD-1002,C-101,2026-03-04,delivered,1800.00,1,Lantern
+ORD-1008,C-103,2026-03-09,shipped,,2,Osprey
+ORD-1009,C-100,2026-03-10,shipped,-15.00,1,Port City
+ORD-1010,C-999,2026-03-12,booked,40.00,1,Port City
+ORD-1011,C-104,2026-03-13,mystery,22.00,1,Osprey
+ORD-1012,C-101,2026-03-15,delivered,60000.00,1,Lantern
+ORD-1013,C-102,2026-03-16,cancelled,10.00,0,Cedar Wharf
+ORD-1014,C-104,2026-03-17,booked,18.00,2,
+ORD-1015,C-100,not-a-date,shipped,11.00,1,Port City

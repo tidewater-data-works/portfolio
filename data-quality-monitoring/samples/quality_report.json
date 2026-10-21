@@ -1,0 +1,108 @@
+{
+  "as_of": "2026-03-20",
+  "gate": "fail",
+  "row_count": 16,
+  "quarantine_count": 9,
+  "checks": [
+    {
+      "name": "required_columns",
+      "status": "pass",
+      "detail": "ok"
+    },
+    {
+      "name": "customer_list",
+      "status": "pass",
+      "detail": "5 customers"
+    },
+    {
+      "name": "order_id_not_null",
+      "status": "pass",
+      "detail": "ok"
+    },
+    {
+      "name": "customer_id_not_null",
+      "status": "pass",
+      "detail": "ok"
+    },
+    {
+      "name": "ordered_on_not_null",
+      "status": "pass",
+      "detail": "ok"
+    },
+    {
+      "name": "status_not_null",
+      "status": "pass",
+      "detail": "ok"
+    },
+    {
+      "name": "amount_not_null",
+      "status": "fail",
+      "detail": "1 row blank"
+    },
+    {
+      "name": "quantity_not_null",
+      "status": "pass",
+      "detail": "ok"
+    },
+    {
+      "name": "ordered_on_iso",
+      "status": "fail",
+      "detail": "1 row not an ISO date"
+    },
+    {
+      "name": "amount_numeric",
+      "status": "pass",
+      "detail": "ok"
+    },
+    {
+      "name": "quantity_numeric",
+      "status": "pass",
+      "detail": "ok"
+    },
+    {
+      "name": "unique_order_id",
+      "status": "fail",
+      "detail": "repeated ORD-1002 on 2 rows"
+    },
+    {
+      "name": "amount_range",
+      "status": "fail",
+      "detail": "2 rows outside 0.01-50000"
+    },
+    {
+      "name": "quantity_range",
+      "status": "fail",
+      "detail": "1 row outside 1-500"
+    },
+    {
+      "name": "status_allowed",
+      "status": "fail",
+      "detail": "1 row outside booked, shipped, delivered, cancelled"
+    },
+    {
+      "name": "customer_id_known",
+      "status": "fail",
+      "detail": "1 row with an unknown customer_id"
+    },
+    {
+      "name": "ship_to_city_present",
+      "status": "warn",
+      "detail": "1 row blank"
+    },
+    {
+      "name": "freshness",
+      "status": "pass",
+      "detail": "newest 2026-03-18 is 2 days old"
+    },
+    {
+      "name": "row_count",
+      "status": "pass",
+      "detail": "16 rows"
+    },
+    {
+      "name": "row_count_drift",
+      "status": "warn",
+      "detail": "16 vs 20 (20.0%)"
+    }
+  ]
+}
