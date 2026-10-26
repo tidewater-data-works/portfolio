@@ -1,0 +1,3 @@
+lead_id,email,company,reason,detail
+LD-2045,riley.cho@harborpine.example,Harbor & Pine,low_model_confidence,model_confidence 0.41 is below 0.70
+LD-2046,sam.ortiz@blueheron.example,Blue Heron Printworks,invalid_model_json,model response was not JSON

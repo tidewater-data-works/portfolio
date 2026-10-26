@@ -1,0 +1,54 @@
+{
+  "alex.kim@mailbox.example": {
+    "band": "Cold",
+    "budget_stated": false,
+    "company": "Independent",
+    "contact_role": null,
+    "email": "alex.kim@mailbox.example",
+    "fit_reason": "The note is a student request for a free script, with no company project.",
+    "intent": "not_a_fit",
+    "lead_id": "LD-2044",
+    "model_confidence": "0.91",
+    "score": 0,
+    "timeline_days": null
+  },
+  "jonah.peck@lanternmail.example": {
+    "band": "Warm",
+    "budget_stated": true,
+    "company": "Lantern Mail Co",
+    "contact_role": "office manager",
+    "email": "jonah.peck@lanternmail.example",
+    "fit_reason": "Office manager is comparing cleanup tools and has an approved cap within 60 days.",
+    "intent": "evaluating",
+    "lead_id": "LD-2042",
+    "model_confidence": "0.88",
+    "score": 75,
+    "timeline_days": 60
+  },
+  "mara.ellison@cedarwharf.example": {
+    "band": "Hot",
+    "budget_stated": true,
+    "company": "Cedar Wharf Logistics",
+    "contact_role": "operations manager",
+    "email": "mara.ellison@cedarwharf.example",
+    "fit_reason": "Operations manager with an approved budget wants a nightly file in place within three weeks.",
+    "intent": "ready_to_buy",
+    "lead_id": "LD-2041",
+    "model_confidence": "0.94",
+    "score": 100,
+    "timeline_days": 21
+  },
+  "priya.shah@ospreypress.example": {
+    "band": "Medium",
+    "budget_stated": true,
+    "company": "Osprey Press",
+    "contact_role": "buyer",
+    "email": "priya.shah@ospreypress.example",
+    "fit_reason": "Buyer named a one-time cap and placed the work after this year.",
+    "intent": "browsing",
+    "lead_id": "LD-2043",
+    "model_confidence": "0.86",
+    "score": 45,
+    "timeline_days": 300
+  }
+}

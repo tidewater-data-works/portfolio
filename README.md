@@ -26,6 +26,10 @@ Invoices and a one-page activity report, drawn as PDFs, extracted to CSV and JSO
 
 A structured extractor for invoice and receipt text. Pydantic checks the schema. A rules backend runs with no API key; a scripted model backend and an HTTP backend can be plugged in, and the HTTP call is mocked in tests. Low-confidence rows go to a review-queue CSV. See [ai-invoice-field-extractor](ai-invoice-field-extractor/README.md).
 
+### Lead qualification
+
+Inbound notes go to a model that has to return a fixed JSON object. The band (Hot, Warm, Medium, or Cold) is computed from those fields. A response that is not JSON, fails the schema, or comes back under the confidence floor is written to a quarantine file and is not upserted. Contacts that pass are upserted to a CRM stub by email, so a second run updates the same row. See [llm-lead-score-crm](llm-lead-score-crm/README.md).
+
 ### Pipeline reliability
 
 A before-and-after of a nightly shipment load: retries with backoff, idempotent writes, a data-quality quarantine, and logging, plus a short written audit. See [pipeline-reliability-audit](pipeline-reliability-audit/README.md).
@@ -47,6 +51,7 @@ A messy vendor export, in CSV or Excel, normalized to one row per vendor: names,
 | [n8n-hubspot-sheets-slack](n8n-hubspot-sheets-slack/) | 15-minute HubSpot deals search, Sheets upsert, Slack alerts |
 | [pdf-document-extraction](pdf-document-extraction/) | Synthetic invoice and report PDFs to CSV and JSON, with total checks |
 | [ai-invoice-field-extractor](ai-invoice-field-extractor/) | Invoice and receipt fields, offline rules backend, review queue |
+| [llm-lead-score-crm](llm-lead-score-crm/) | Inbound lead notes to Hot/Warm/Medium/Cold, quarantine, and an idempotent CRM upsert |
 | [pipeline-reliability-audit](pipeline-reliability-audit/) | Fragile shipment load, hardened rerun, and a $250 audit write-up |
 | [data-quality-monitoring](data-quality-monitoring/) | Synthetic orders checked for schema, ranges, freshness, and drift, with a quarantine |
 | [data-cleaning-toolkit](data-cleaning-toolkit/) | Messy vendor CSV and Excel normalized to a clean file and a change log |

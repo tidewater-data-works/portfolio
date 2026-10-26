@@ -1,0 +1,38 @@
+[
+  {
+    "lead_id": "LD-2041",
+    "email": "Mara.Ellison@cedarwharf.example",
+    "company": "Cedar Wharf Logistics",
+    "note": "I'm Mara Ellison, operations manager at Cedar Wharf Logistics. We need a nightly shipment file in a spreadsheet before the April close. Budget is approved at 6000 USD. We can start in three weeks."
+  },
+  {
+    "lead_id": "LD-2042",
+    "email": "jonah.peck@lanternmail.example",
+    "company": "Lantern Mail Co",
+    "note": "Jonah Peck, office manager at Lantern Mail Co. We are comparing two tools to clean a vendor list. Finance approved up to 2500 USD. We want it running within 60 days."
+  },
+  {
+    "lead_id": "LD-2043",
+    "email": "priya.shah@ospreypress.example",
+    "company": "Osprey Press",
+    "note": "Priya Shah, buyer at Osprey Press. We have a 900 USD cap for a one-time list cleanup. No rush, sometime next year is fine. Just looking."
+  },
+  {
+    "lead_id": "LD-2044",
+    "email": "alex.kim@mailbox.example",
+    "company": "Independent",
+    "note": "I'm Alex Kim. This is for a class project. I need a free script. I don't have a company."
+  },
+  {
+    "lead_id": "LD-2045",
+    "email": "riley.cho@harborpine.example",
+    "company": "Harbor & Pine",
+    "note": "hi"
+  },
+  {
+    "lead_id": "LD-2046",
+    "email": "sam.ortiz@blueheron.example",
+    "company": "Blue Heron Printworks",
+    "note": "Sam Ortiz at Blue Heron Printworks. We might want help with invoices later. Not sure on budget or timing."
+  }
+]
