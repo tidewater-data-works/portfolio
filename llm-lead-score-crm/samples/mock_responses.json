@@ -1,0 +1,43 @@
+{
+  "LD-2041": {
+    "intent": "ready_to_buy",
+    "budget_stated": true,
+    "timeline_days": 21,
+    "contact_role": "operations manager",
+    "fit_reason": "Operations manager with an approved budget wants a nightly file in place within three weeks.",
+    "model_confidence": 0.94
+  },
+  "LD-2042": {
+    "intent": "evaluating",
+    "budget_stated": true,
+    "timeline_days": 60,
+    "contact_role": "office manager",
+    "fit_reason": "Office manager is comparing cleanup tools and has an approved cap within 60 days.",
+    "model_confidence": 0.88
+  },
+  "LD-2043": {
+    "intent": "browsing",
+    "budget_stated": true,
+    "timeline_days": 300,
+    "contact_role": "buyer",
+    "fit_reason": "Buyer named a one-time cap and placed the work after this year.",
+    "model_confidence": 0.86
+  },
+  "LD-2044": {
+    "intent": "not_a_fit",
+    "budget_stated": false,
+    "timeline_days": null,
+    "contact_role": null,
+    "fit_reason": "The note is a student request for a free script, with no company project.",
+    "model_confidence": 0.91
+  },
+  "LD-2045": {
+    "intent": "browsing",
+    "budget_stated": false,
+    "timeline_days": null,
+    "contact_role": null,
+    "fit_reason": "The note does not describe a project.",
+    "model_confidence": 0.41
+  },
+  "LD-2046": "This lead looks warm."
+}
